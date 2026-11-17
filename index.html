@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kakasfied | تدوینگر و ادیتور ویدیو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E8F3EC;--surface:#FFFFFF;--ink:#0B2418;--muted:#46604F;--line:#BCD5C5;
+  --g1:#0B6E4F;--g2:#138A5E;--g3:#34C98A;--g4:#9BE3A8;--g3t:#0B2418;
+  --head:#FF3D6E;--grid:rgba(11,110,79,.08);--contact:#0B6E4F;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0C2218;--surface:#12301F;--ink:#E6F6EC;--muted:#9DBBA9;--line:#24473A;--g1:#0F8A5F;--g2:#16A06E;--grid:rgba(52,230,160,.07);--contact:#0F5E43}}
+:root[data-theme="dark"]{--bg:#0C2218;--surface:#12301F;--ink:#E6F6EC;--muted:#9DBBA9;--line:#24473A;--g1:#0F8A5F;--g2:#16A06E;--grid:rgba(52,230,160,.07);--contact:#0F5E43}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Vazirmatn",Tahoma,sans-serif;line-height:1.95;font-weight:300;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;animation:drift 40s linear infinite}
+@keyframes drift{to{background-position:48px 48px}}
+main{max-width:920px;margin:0 auto;padding:64px 22px 40px}
+h1{font-weight:900;font-size:clamp(52px,16vw,132px);line-height:1.1;margin:0 0 10px;letter-spacing:-.035em;direction:ltr;text-align:right;display:flex;justify-content:flex-end;overflow:hidden}
+h1 span{display:inline-block;animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*60ms)}
+@keyframes rise{from{transform:translateY(110%);opacity:0}to{transform:none;opacity:1}}
+.role{font-size:clamp(18px,4.4vw,26px);font-weight:500;margin:0 0 12px;animation:fade 1s .6s both}
+.sub{max-width:560px;color:var(--muted);margin:0 0 40px;animation:fade 1s .8s both}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.tl{direction:ltr;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 16px 18px;position:relative;overflow:hidden;box-shadow:0 18px 50px -24px var(--g1);animation:fade 1s 1s both}
+.bar{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted);margin-bottom:10px;border-bottom:1px solid var(--line);padding-bottom:6px;font-variant-numeric:tabular-nums}
+.tc{font-weight:800;color:var(--ink);font-size:13px;letter-spacing:.04em}
+.track{display:flex;gap:3px;margin-bottom:6px;height:58px}
+.clip{border-radius:6px;color:#fff;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;padding:0 6px;white-space:nowrap;overflow:hidden;direction:rtl;opacity:.55;transform-origin:left;transition:opacity .25s,transform .25s,filter .25s;animation:grow .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(1.2s + var(--n)*120ms)}
+.clip.on{opacity:1;filter:brightness(1.12);transform:scaleY(1.06)}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.k1{background:var(--g1)}.k2{background:var(--g2)}.k3{background:var(--g3);color:var(--g3t)}.k4{background:var(--g4);color:var(--g3t)}
+.audio{height:36px;display:flex;align-items:center;gap:2px}
+.audio i{flex:1;background:var(--g2);border-radius:2px;min-width:1px;opacity:.8;transform-origin:center;animation:bar 1.2s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(1.5s + var(--n)*8ms)}
+@keyframes bar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.head{position:absolute;top:0;bottom:0;left:0;width:2px;background:var(--head);will-change:transform;opacity:0;transition:opacity .6s 2s}
+.ready .head{opacity:1}
+.head::before{content:"";position:absolute;top:0;left:-6px;border:7px solid transparent;border-top:9px solid var(--head);border-bottom:0}
+section{margin-top:76px}
+h2{font-size:26px;font-weight:800;margin:0 0 18px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--g2);border-radius:8px;padding:16px 18px;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 30px -18px var(--g1)}
+.card:nth-child(2){border-top-color:var(--g3)}.card:nth-child(3){border-top-color:var(--g4)}.card:nth-child(4){border-top-color:var(--g1)}
+.card b{display:block;font-weight:800;font-size:18px;margin-bottom:2px}
+.card span{color:var(--muted);font-size:15px}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding:0 54px 24px 0;margin-right:16px}
+.steps li::after{content:"";position:absolute;right:-1px;top:34px;bottom:0;width:2px;background:var(--g2);transform:scaleY(0);transform-origin:top;transition:transform .7s .25s}
+.steps li.in::after{transform:scaleY(1)}
+.steps li:last-child::after{display:none}
+.steps li::before{content:counter(s);position:absolute;right:-17px;top:0;width:32px;height:32px;border-radius:50%;background:var(--g1);color:#fff;font-weight:800;display:grid;place-items:center;font-size:15px}
+.steps b{font-weight:800;display:block}
+.steps span{color:var(--muted)}
+.contact{background:var(--contact);color:#fff;border-radius:16px;padding:36px 26px;margin-top:76px}
+.contact h2{margin:0 0 6px}
+.contact p{margin:0 0 22px;opacity:.92;max-width:520px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn{font:inherit;font-weight:900;font-size:20px;text-decoration:none;border:0;cursor:pointer;background:#fff;color:#0B2418;border-radius:10px;padding:12px 26px;direction:ltr;display:inline-block;position:relative;animation:ring 2.8s infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(255,255,255,.55)}70%,100%{box-shadow:0 0 0 16px rgba(255,255,255,0)}}
+.btn.alt{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.7);font-weight:500;font-size:16px;animation:none}
+.btn:focus-visible{outline:3px solid var(--head);outline-offset:3px}
+footer{margin-top:40px;color:var(--muted);font-size:13px}
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--d,0)*110ms)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}.head{opacity:1}}
+</style>
+</head>
+<body>
+<main>
+  <h1 id="name" aria-label="Kakasfied">Kakasfied</h1>
+  <p class="role">تدوینگر و ادیتور ویدیو</p>
+  <p class="sub">تدوین حرفه‌ای برای برندها، تولیدکنندگان محتوا و کسب‌وکارها؛ با ریتم دقیق، صدای پاک و تحویل در زمان تعهدشده.</p>
+
+  <div class="tl" id="tl" aria-hidden="true">
+    <div class="bar"><span>Timeline</span><span class="tc" id="tc">00:00:00</span></div>
+    <div class="track" id="track">
+      <div class="clip k1" style="flex:3;--n:0">ریلز و شورت</div>
+      <div class="clip k2" style="flex:4;--n:1">یوتیوب</div>
+      <div class="clip k3" style="flex:2;--n:2">تبلیغاتی</div>
+      <div class="clip k4" style="flex:3;--n:3">موشن</div>
+    </div>
+    <div class="audio" id="wave"></div>
+    <div class="head" id="head"></div>
+  </div>
+
+  <section>
+    <h2 class="rv">خدمات</h2>
+    <div class="grid">
+      <div class="card rv" style="--d:0"><b>تدوین ریلز و شورت</b><span>محتوای کوتاه عمودی متناسب با هر پلتفرم، همراه با زیرنویس و جلوه‌های تصویری.</span></div>
+      <div class="card rv" style="--d:1"><b>تدوین یوتیوب</b><span>تدوین ویدیوهای بلند با ریتم منسجم و حذف بخش‌های اضافه برای حفظ مخاطب.</span></div>
+      <div class="card rv" style="--d:2"><b>ویدیوی تبلیغاتی</b><span>تولید کلیپ معرفی محصول و برند با تمرکز بر پیام اصلی.</span></div>
+      <div class="card rv" style="--d:3"><b>موشن، صدا و رنگ</b><span>موشن‌گرافیک، پاک‌سازی صدا و اصلاح رنگ برای خروجی یکدست.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="rv">مراحل همکاری</h2>
+    <ol class="steps">
+      <li class="rv"><b>دریافت پروژه</b><span>شرح پروژه و فایل‌ها یا نمونه‌ی مرجع از طریق تلگرام ارسال می‌شود.</span></li>
+      <li class="rv"><b>برآورد و توافق</b><span>هزینه و زمان تحویل پیش از شروع کار مشخص و نهایی می‌شود.</span></li>
+      <li class="rv"><b>تدوین و بازبینی</b><span>نسخه‌ی اول ارائه می‌شود و اصلاحات شما اعمال می‌گردد.</span></li>
+      <li class="rv"><b>تحویل نهایی</b><span>خروجی با کیفیت و فرمت مورد نظر شما تحویل داده می‌شود.</span></li>
+    </ol>
+  </section>
+
+  <div class="contact rv" id="contact">
+    <h2>همکاری و سفارش</h2>
+    <p>برای دریافت مشاوره و برآورد هزینه، پروژه‌ی خود را از طریق تلگرام برای من ارسال کنید.</p>
+    <div class="cta">
+      <a class="btn" href="https://t.me/Kaka_sfied" target="_blank" rel="noopener">@Kaka_sfied</a>
+      <button class="btn alt" id="copy" type="button">کپی آیدی</button>
+    </div>
+  </div>
+
+  <footer>© Kakasfied</footer>
+</main>
+<script>
+(function(){
+  var d=document,root=d.documentElement,rm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  root.classList.add('js');
+  // headline letters
+  var n=d.getElementById('name'),t=n.textContent,h='';
+  for(var i=0;i<t.length;i++)h+='<span style="--i:'+i+'">'+t[i]+'</span>';
+  n.innerHTML=h;
+  // waveform
+  var w=d.getElementById('wave'),s=7,b='';
+  for(var j=0;j<96;j++){s=(s*9301+49297)%233280;var v=s/233280;b+='<i style="--n:'+j+';height:'+(16+Math.round(Math.abs(Math.sin(j/6))*52+v*32))+'%"></i>';}
+  w.innerHTML=b;
+  // scroll reveal
+  var els=d.querySelectorAll('.rv');
+  if('IntersectionObserver' in window&&!rm){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15});
+    els.forEach(function(e){io.observe(e);});
+  }else{els.forEach(function(e){e.classList.add('in');});}
+  // live playhead
+  var tl=d.getElementById('tl'),head=d.getElementById('head'),tc=d.getElementById('tc'),clips=[].slice.call(d.querySelectorAll('.clip'));
+  function pad(x){return x<10?'0'+x:''+x;}
+  if(rm){head.style.transform='translateX('+(tl.clientWidth*.5)+'px)';}
+  else{
+    var start=null,L=16,dur=9000;
+    setTimeout(function(){tl.classList.add('ready');},2200);
+    function tick(ts){
+      if(start===null)start=ts;
+      var p=((ts-start)%dur)/dur,W=tl.clientWidth,x=L+p*(W-2*L);
+      head.style.transform='translateX('+x+'px)';
+      var sec=p*60;tc.textContent='00:'+pad(Math.floor(sec))+':'+pad(Math.floor((sec%1)*25));
+      var tr=d.getElementById('track').getBoundingClientRect(),tlr=tl.getBoundingClientRect(),abs=x+tlr.left;
+      clips.forEach(function(c){var r=c.getBoundingClientRect();c.classList.toggle('on',abs>=r.left&&abs<=r.right);});
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  // copy
+  var cb=d.getElementById('copy');
+  cb.addEventListener('click',function(){
+    function ok(){cb.textContent='کپی شد';setTimeout(function(){cb.textContent='کپی آیدی'},1800);}
+    try{navigator.clipboard.writeText('@Kaka_sfied').then(ok,function(){});}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
